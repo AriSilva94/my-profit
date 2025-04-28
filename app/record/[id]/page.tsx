@@ -2,10 +2,15 @@ import RecordCard from "@/components/RecordCard";
 import { supabase } from "../../../services/supabase";
 import Link from "next/link";
 
-type Props = { params: { id: string } };
+type Params = { id: string };
 
-export default async function RecordPage({ params }: Props) {
-  const { id } = params;
+export default async function RecordPage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  // unwrap the async params API
+  const { id } = await params;
 
   const { data: session, error } = await supabase
     .from("sessions")
