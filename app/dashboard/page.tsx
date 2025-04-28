@@ -1,4 +1,6 @@
-// app/dashboard/page.tsx
+export const revalidate = 0;
+
+export const dynamic = "force-dynamic";
 
 import RecordCard from "@/components/RecordCard";
 import { supabase } from "../../services/supabase";
@@ -18,12 +20,11 @@ export default async function DashboardPage() {
     );
   }
 
-  // Calculate total balance
-  const totalBalance =
-    sessions?.reduce((sum, session) => {
-      const num = parseInt(session.balance.replace(/,/g, ""), 10) || 0;
-      return sum + num;
-    }, 0) ?? 0;
+  const totalBalance = sessions.reduce((sum, session) => {
+    const num = parseInt(session.balance.replace(/,/g, ""), 10) || 0;
+    return sum + num;
+  }, 0);
+
   const formattedBalance = totalBalance.toLocaleString("en-US");
 
   return (
